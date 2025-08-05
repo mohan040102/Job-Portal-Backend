@@ -37,7 +37,7 @@ export class JobController {
         try {
             const isRecruiter = req?.user?.user_type === constant.UserTypes.EMPLOYER;
 
-            const jobs = await Job.find({ ...(isRecruiter && { creator_id: req.user.id }) }, { "_id": false, title: true, description: true });
+            const jobs = await Job.find({ ...(isRecruiter && { creator_id: req.user.id }) }, { "_id": false, title: true, description: true, company: true, location: true, salary: true, created_at: true });
 
             return res.status(httpStatus.OK).json(jobs)
         } catch (err) {

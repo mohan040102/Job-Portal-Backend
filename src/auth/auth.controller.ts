@@ -4,12 +4,17 @@ import AuthToken from "../models/auth-tokens";
 import User from "../models/users";
 import httpStatus from "http-status"
 import { generateToken } from "../utils/generate-auth-token";
+import moment from "moment";
 
 export class AuthController {
     login = async (req: Request, res: Response) => {
-        const username = req.headers.user_name;
-        const password = req.headers.password;
+        const encodedPassword = req.headers.authorization?.split(" ")[1] as string;
+        const basicAuth = Buffer.from(encodedPassword, 'base64').toString('utf-8').split(':');
+        
+        const username = basicAuth?.[0];
+        const password = basicAuth?.[1];
 
+        console.log(basicAuth);
         const user = await User.findOne({ email: username, password: password });
 
         if (!user) {
@@ -17,6 +22,7 @@ export class AuthController {
         }
 
         const token = generateToken();
+        const result = {token: token, expires_at: moment().add(1, "days").format("YYYY-MM-DD HH:mm:ss")};
 
         await AuthToken.updateOne(
             { user_id: user.id },               // Filter: match by user_id
@@ -24,7 +30,7 @@ export class AuthController {
             { upsert: true }                    // Options: insert if not found
         );
 
-        return res.status(httpStatus.OK).json(token);
+        return res.status(httpStatus.OK).json(result);
     }
 
 }

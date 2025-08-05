@@ -8,10 +8,10 @@ export class AuthRoute {
 
     constructor() {
         this.router = Router();
-        this.route()
+        this.route();
     }
 
     route() {
-        this.router.get("/login", this.AuthController.login);
+        this.router.post("/login", this.AuthController.login);
     }
 } 

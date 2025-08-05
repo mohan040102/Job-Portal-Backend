@@ -13,7 +13,7 @@ export const verifyAuthuToken = async (req: any, res: Response, next: NextFuncti
     }
 
     const tokenData = await AuthToken.findOne({ token: token });
-    const userData = await User.findOne({ id: tokenData?.user_id });
+    const userData = await User.findOne({ _id: tokenData?.user_id }, {name: true, email: true, user_type: true});
 
     req.user = userData;
 
@@ -22,6 +22,7 @@ export const verifyAuthuToken = async (req: any, res: Response, next: NextFuncti
 
 export const userTypeValidation = (userType: string[]) => {
     return (req: any, res: Response, next: NextFunction) => {
+        console.log("User Type:", req.user.user_type, userType);
         if (!userType.includes(req.user.user_type)) {
             return res.status(httpStatus.UNAUTHORIZED).json({message: "Unauthorized"})
         }

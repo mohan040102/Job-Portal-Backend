@@ -6,11 +6,15 @@ module.exports = {
       validator: {
         $jsonSchema: {
           bsonType: "object",
-          required: ["_id", "title", "description", "creator_id"],
+          required: ["_id", "company", "title", "description", "creator_id"],
           properties: {
             _id: {
               bsonType: "string",
               description: "Job ID, must be a UUID string",
+            },
+            company: {
+              bsonType: "string",
+              description: "Company name is required",
             },
             title: {
               bsonType: "string",
