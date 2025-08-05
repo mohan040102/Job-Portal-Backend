@@ -19,5 +19,7 @@ export class JobRoute {
         this.router.get("/:id", this.JobController.getJob);
 
         this.router.post("/", userTypeValidation([constant.UserTypes.EMPLOYER]), this.JobController.createJob);
+
+        this.router.post("/apply", userTypeValidation([constant.UserTypes.JOBSEEKER]), this.JobController.applyJob);
     }
 } 
