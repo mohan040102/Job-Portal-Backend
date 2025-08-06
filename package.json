@@ -4,7 +4,7 @@
   "description": "Job Portal Server",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf ./build && npm install && npx migrate-mongo up && tsc",
+    "build": "rm -rf ./build && npm install && tsc",
     "dev": "nodemon --watch src --ext ts --exec \"ts-node-esm --experimental-specifier-resolution=node -r tsconfig-paths/register index.ts\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prod": "node ./build/index.js"
