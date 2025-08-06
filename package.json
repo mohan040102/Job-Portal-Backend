@@ -9,6 +9,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prod": "node ./build/index.js"
   },
+  "engines": {
+  "node": "18.x"
+},
   "type": "module",
   "author": "Mohanasubbu Muthuraja",
   "license": "ISC",
