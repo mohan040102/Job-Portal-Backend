@@ -11,7 +11,7 @@ const app = express();
 
 const port = process.env.PORT ?? 4000;
 
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
@@ -19,6 +19,8 @@ const limiter = rateLimit({
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
+
+app.use(limiter);
 
 // Handle CORS
 app.use(cors());
@@ -30,7 +32,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(transaction);
 
 // Apply the rate limiting middleware to all requests
-app.use(limiter);
 
 connectDB();
 
