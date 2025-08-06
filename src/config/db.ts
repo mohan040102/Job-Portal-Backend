@@ -4,6 +4,8 @@ dotenv.config()
 
 const MONGO_URI = process.env.MONGO_URI as string;
 
+console.log("MongoDB URI:", MONGO_URI);
+
 const connectDB = async (): Promise<void> => {
   if (mongoose.connection.readyState === 1) {
     // Already connected
