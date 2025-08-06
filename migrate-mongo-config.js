@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config()
+require("dotenv").config()
 
 // In this file you can configure migrate-mongo
 const config = {
